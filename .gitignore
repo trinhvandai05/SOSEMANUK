@@ -7,3 +7,8 @@ build/
 dist/
 coverage.xml
 .coverage
+tools/ref_diff/ref/
+
+# Temporary staging for independent C fixture build
+tools/ref_diff/*.staging.txt
+tests/vectors/*.staging.json

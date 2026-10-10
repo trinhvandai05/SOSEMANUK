@@ -15,3 +15,19 @@ These are byte-level known-answer tests; they must not be replaced by roundtrip 
 5. **Serpent32 KAT:** libgcrypt/nettle test vectors for 128-bit/256-bit keys; independently validates S-box, LT, key schedule (and key padding) before SOSEMANUK integration.
    https://hawkynt.github.io/Cipher/docs/algorithms/block-ciphers/serpent.html
    https://sources.debian.org/src/nettle/3.8.1-2/testsuite/serpent-test.c
+
+6. **KAT khóa 128-bit (#2):** nguồn chính là mã C tham chiếu của tác giả biên dịch với `SOSEMANUK_VECTOR`, phần **Detailed test vector 2**. Nguồn mirror mã C: https://github.com/cchcc/SOSEMANUK/blob/master/C/SOSEMANUK.C . Kết quả 160 byte đã được đối chiếu theo phản biện của nhóm. Nguồn Rust https://rust.algorithmexamples.com/web/cryptography/sosemanuk.html chỉ là nguồn phụ, không thay mã tham chiếu.
+
+7. **Intermediate trace — C reference stdout (CHƯA ĐÍNH KÈM):** Dự kiến `tests/vectors/reference_trace.json`, được parse từ stdout C (không phải Python), đi kèm `source_url`, `raw_stdout_sha256`, compiler/command và commit/version khi có. Xem `tools/ref_diff/README.md`. Nếu chưa có fixture chính thống, G2/G4/G5 chưa được xác minh độc lập.
+
+
+## v1.4 — ghi provenance sau khi tạo trace C
+
+- **Source Git commit:** (điền từ `build_reference_trace.py`)
+- **SHA256 SOSEMANUK.C / SOSEMANUK.H:** (điền từ fixture JSON)
+- **C compiler + build flags:** GCC, `-O2 -std=c99 -x c -DSOSEMANUK_VECTOR`
+- **Raw stdout SHA256:** (điền từ fixture JSON)
+- **Normalized stdout SHA256:** (điền từ fixture JSON)
+- **TV5 chuẩn bị / TV2 kiểm tra:** (điền tên + ngày)
+
+Lưu nguyên `tools/ref_diff/c_reference_stdout.txt` cùng `tests/vectors/reference_trace.json`. Các hash xác nhận tính toàn vẹn của log so với fixture, không thay nguồn C đã pin. Không thay log này bằng output từ `tools/show_trace.py`.
