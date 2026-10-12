@@ -39,7 +39,7 @@ Nhóm tự triển khai thuật toán mã hóa dòng **SOSEMANUK** dựa trên �
 | Mã | Người nhận | Nhánh đề xuất | Phần việc chính | File phụ trách | Điều kiện hoàn thành |
 |---|---|---|---|---|---|
 | **TV1** | _Chưa phân công_ | `feature/arithmetic` | Phép toán word 32-bit, `GF(2^8)`, phép nhân/chia với α | `core/word32.py`, `core/gf256.py`, `core/alpha.py` | Kiểm tra endian/overflow/rotate; bảng α khớp oracle |
-| **TV2** | _Chưa phân công_ | `feature/lfsr-fsm` | LFSR 10 word, FSM 2 thanh ghi, quy tắc cập nhật 1 clock | `core/lfsr.py`, `core/fsm.py` | Cả hai nhánh `mux`; trace LFSR/FSM đúng; không dùng nhầm R1 mới |
+| **TV2** | Nguyễn Công Hùng(nguyenhungst205-ship-it)| `feature/lfsr-fsm` | LFSR 10 word, FSM 2 thanh ghi, quy tắc cập nhật 1 clock | `core/lfsr.py`, `core/fsm.py` | Cả hai nhánh `mux`; trace LFSR/FSM đúng; không dùng nhầm R1 mới |
 | **TV3** | Vũ Trung Hiếu (hieuvu0212) | `feature/serpent-primitives` | 8 S-box, bitslicing, Linear Transformation và output transform (Serpent1) | `serpent/sbox.py`, `serpent/linear_transform.py`, `output_transform.py` | S-box chuẩn; bitslice khớp bản đơn giản; output transform khớp trace |
 | **TV4** | _Chưa phân công_ | `feature/serpent24` | Key schedule SERPENT, Serpent24, các checkpoint round 12/18/24 | `serpent/key_schedule.py`, `serpent/serpent24.py`, `tests/support/serpent32.py` | Subkey, Serpent32 KAT, checkpoint đúng oracle |
 | **TV5** | _Chưa phân công_ | `feature/initialization` | Context khóa/luồng, key setup, IV setup, ánh xạ trạng thái ban đầu | `context.py`, `key_setup.py`, `iv_setup.py`, `validation.py` | Tách `KeyContext` / `StreamContext`; initial state đúng trace |
