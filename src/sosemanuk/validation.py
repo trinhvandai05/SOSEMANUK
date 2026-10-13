@@ -1,3 +1,4 @@
+"""Ngô Thùy Linh"""
 """Strict conversion of cryptographic byte inputs.
 
 Never call bytes(number): bytes(16) silently creates a known all-zero key.
