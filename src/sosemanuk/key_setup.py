@@ -1,3 +1,4 @@
+"""Ngô Thùy Linh"""
 """Key setup runs once per secret key; its context is reusable."""
 from .context import KeyContext
 from .serpent.key_schedule import serpent_key_schedule
