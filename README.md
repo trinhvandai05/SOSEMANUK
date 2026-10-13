@@ -42,7 +42,7 @@ Nhóm tự triển khai thuật toán mã hóa dòng **SOSEMANUK** dựa trên �
 | **TV2** | Nguyễn Công Hùng(nguyenhungst205-ship-it)| `feature/lfsr-fsm` | LFSR 10 word, FSM 2 thanh ghi, quy tắc cập nhật 1 clock | `core/lfsr.py`, `core/fsm.py` | Cả hai nhánh `mux`; trace LFSR/FSM đúng; không dùng nhầm R1 mới |
 | **TV3** | Vũ Trung Hiếu (hieuvu0212) | `feature/serpent-primitives` | 8 S-box, bitslicing, Linear Transformation và output transform (Serpent1) | `serpent/sbox.py`, `serpent/linear_transform.py`, `output_transform.py` | S-box chuẩn; bitslice khớp bản đơn giản; output transform khớp trace |
 | **TV4** | _Chưa phân công_ | `feature/serpent24` | Key schedule SERPENT, Serpent24, các checkpoint round 12/18/24 | `serpent/key_schedule.py`, `serpent/serpent24.py`, `tests/support/serpent32.py` | Subkey, Serpent32 KAT, checkpoint đúng oracle |
-| **TV5** | _Chưa phân công_ | `feature/initialization` | Context khóa/luồng, key setup, IV setup, ánh xạ trạng thái ban đầu | `context.py`, `key_setup.py`, `iv_setup.py`, `validation.py` | Tách `KeyContext` / `StreamContext`; initial state đúng trace |
+| **TV5** | Ngô Thùy Linh (linhThuyK68) | `feature/initialization` | Context khóa/luồng, key setup, IV setup, ánh xạ trạng thái ban đầu | `context.py`, `key_setup.py`, `iv_setup.py`, `validation.py` | Tách `KeyContext` / `StreamContext`; initial state đúng trace |
 | **TV6** | _Chưa phân công_ | `feature/stream-api` | Ghép 4 clock, giữ buffer keystream, API mã hóa/giải mã, demo và kiểm thử end-to-end | `keystream.py`, `api.py`, `run_demo.py`, `examples/basic_encrypt.py` | Vector keystream đúng; chia chunk tùy ý vẫn cùng kết quả; demo chạy được |
 
 Tất cả đường dẫn trong bảng trên được hiểu là tương đối với **`src/sosemanuk/`**, trừ `tests/`, `run_demo.py` và `examples/`.
