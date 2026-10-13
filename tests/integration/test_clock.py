@@ -1,3 +1,4 @@
+# Công Hùng
 import unittest
 
 from sosemanuk.core.lfsr import lfsr_step
@@ -94,5 +95,5 @@ class TestClock(unittest.TestCase):
         )
 
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     unittest.main()
