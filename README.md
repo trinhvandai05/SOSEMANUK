@@ -4,13 +4,16 @@
 > Repository: <https://github.com/trinhvandai05/SOSEMANUK>  
 > Ngôn ngữ: **Python 3.10+** · Kiểm thử: **`unittest`** · Quy trình: **nhánh tính năng → Pull Request → review → merge `main`**
 
-## Trạng thái xác minh bản v1.4
+## Trạng thái repo: **SKELETON v1.4 — CHƯA CÓ MÃ TRIỂN KHAI**
 
-- `python run_tests.py`: **55 tests, 47 PASS, 8 SKIP, 0 FAIL** khi chưa có fixture C độc lập.
-- **Không coi G2/G4/G5 là hoàn thành** nếu 8 trace tests còn SKIP.
-- Chạy `python tools/ref_diff/build_reference_trace.py` để lấy, build và xuất stdout từ bản C tác giả, rồi `python run_tests.py --require-reference-trace`. Xem [`tools/ref_diff/README.md`](tools/ref_diff/README.md).
-- Strict gate kiểm cả **raw stdout + SHA256 + parse lại + đối chiếu 2 KAT 160 byte**; chỉ JSON chứa `source_kind` không thể PASS.
-- Không copy mã Python trong bản Full vào nhánh Skeleton của nhóm; mã Full dùng để đối chiếu/bài giảng.
+- Gói này được sinh từ **đúng cây file của Full v1.4** (cùng 64 đường dẫn file), phục vụ nhóm **6 thành viên tự triển khai**.
+- **Tất cả file `.py` đều rỗng (0 byte)**, bao gồm mã nguồn, unit tests, `run_tests.py`, các công cụ trace và ví dụ. File dữ liệu `tests/vectors/*.json` và tài liệu được giữ lại làm đầu vào/định hướng.
+- **Chưa có phép thử thực thi** và **chưa gate nào được xác nhận PASS**. Tuyệt đối không hiểu `python run_tests.py` không báo lỗi là test đạt: khi file rỗng, nó không chạy test nào.
+- Mục tiêu của bản Full v1.4 *sau khi nhóm triển khai* là bộ kiểm thử 55 test, trong đó có 8 bài cần oracle C độc lập. Những con số này là **thông tin về bản Full tham chiếu, không phải kết quả của Skeleton**.
+- `tools/ref_diff/build_reference_trace.py` và `extract_reference_trace.py` hiện cũng rỗng; TV5 phải tự triển khai hoặc tạo một công cụ độc lập rồi ghi nguồn cho oracle C.
+- `src/sosemanuk/__init__.py` và các `__init__.py` khác để trống có chủ đích; **TV6** chỉ thêm public API sau khi `api.py` đã sẵn sàng.
+- **Không giải nén Skeleton đè lên repository đang có code!** Chỉ dùng Skeleton để tạo repo ban đầu, hoặc đồng bộ bằng cách thêm những file còn thiếu trên nhánh riêng, không thay thế file `.py` đã được các thành viên viết.
+
 
 ## 1. Mục tiêu dự án
 
@@ -35,12 +38,12 @@ Nhóm tự triển khai thuật toán mã hóa dòng **SOSEMANUK** dựa trên �
 
 | Mã | Người nhận | Nhánh đề xuất | Phần việc chính | File phụ trách | Điều kiện hoàn thành |
 |---|---|---|---|---|---|
-| **TV1** | Trịnh Văn Đại (trinhvandai05) | `feature/arithmetic` | Phép toán word 32-bit, `GF(2^8)`, phép nhân/chia với α | `core/word32.py`, `core/gf256.py`, `core/alpha.py` | Kiểm tra endian/overflow/rotate; bảng α khớp oracle |
-| **TV2** | Nguyễn Công Hùng (nguyenhungst205-ship-it) | `feature/lfsr-fsm` | LFSR 10 word, FSM 2 thanh ghi, quy tắc cập nhật 1 clock | `core/lfsr.py`, `core/fsm.py` | Cả hai nhánh `mux`; trace LFSR/FSM đúng; không dùng nhầm R1 mới |
+| **TV1** | _Chưa phân công_ | `feature/arithmetic` | Phép toán word 32-bit, `GF(2^8)`, phép nhân/chia với α | `core/word32.py`, `core/gf256.py`, `core/alpha.py` | Kiểm tra endian/overflow/rotate; bảng α khớp oracle |
+| **TV2** | Nguyễn Công Hùng(nguyenhungst205-ship-it)| `feature/lfsr-fsm` | LFSR 10 word, FSM 2 thanh ghi, quy tắc cập nhật 1 clock | `core/lfsr.py`, `core/fsm.py` | Cả hai nhánh `mux`; trace LFSR/FSM đúng; không dùng nhầm R1 mới |
 | **TV3** | Vũ Trung Hiếu (hieuvu0212) | `feature/serpent-primitives` | 8 S-box, bitslicing, Linear Transformation và output transform (Serpent1) | `serpent/sbox.py`, `serpent/linear_transform.py`, `output_transform.py` | S-box chuẩn; bitslice khớp bản đơn giản; output transform khớp trace |
 | **TV4** | _Chưa phân công_ | `feature/serpent24` | Key schedule SERPENT, Serpent24, các checkpoint round 12/18/24 | `serpent/key_schedule.py`, `serpent/serpent24.py`, `tests/support/serpent32.py` | Subkey, Serpent32 KAT, checkpoint đúng oracle |
-| **TV5** | Ngô Thùy Linh | `feature/initialization` | Context khóa/luồng, key setup, IV setup, ánh xạ trạng thái ban đầu | `context.py`, `key_setup.py`, `iv_setup.py`, `validation.py` | Tách `KeyContext` / `StreamContext`; initial state đúng trace |
-| **TV6** | Đỗ Thành Long (dothanhlonghust) | `feature/stream-api` | Ghép 4 clock, giữ buffer keystream, API mã hóa/giải mã, demo và kiểm thử end-to-end | `keystream.py`, `api.py`, `run_demo.py`, `examples/basic_encrypt.py` | Vector keystream đúng; chia chunk tùy ý vẫn cùng kết quả; demo chạy được |
+| **TV5** | _Chưa phân công_ | `feature/initialization` | Context khóa/luồng, key setup, IV setup, ánh xạ trạng thái ban đầu | `context.py`, `key_setup.py`, `iv_setup.py`, `validation.py` | Tách `KeyContext` / `StreamContext`; initial state đúng trace |
+| **TV6** | _Chưa phân công_ | `feature/stream-api` | Ghép 4 clock, giữ buffer keystream, API mã hóa/giải mã, demo và kiểm thử end-to-end | `keystream.py`, `api.py`, `run_demo.py`, `examples/basic_encrypt.py` | Vector keystream đúng; chia chunk tùy ý vẫn cùng kết quả; demo chạy được |
 
 Tất cả đường dẫn trong bảng trên được hiểu là tương đối với **`src/sosemanuk/`**, trừ `tests/`, `run_demo.py` và `examples/`.
 
