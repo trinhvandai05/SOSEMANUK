@@ -1,5 +1,4 @@
-# Công Hùng
-""FSM step uses OLD LFSR words and OLD R1 for the mux and Trans."""
+"""FSM step uses OLD LFSR words and OLD R1 for the mux and Trans."""
 from .word32 import MASK32, rotl32
 TRANS_MULTIPLIER = 0x54655307
 
