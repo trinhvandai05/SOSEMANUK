@@ -13,3 +13,5 @@ class TestScheduleAndSerpent24(unittest.TestCase):
         cp = serpent24(bytes(16), serpent_key_schedule(bytes(32)))
         self.assertEqual(set(cp), {12, 18, 24})
         self.assertTrue(all(len(x) == 4 for x in cp.values()))
+        
+        

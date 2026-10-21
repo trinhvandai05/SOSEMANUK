@@ -12,3 +12,5 @@ class TestSerpent32Oracle(unittest.TestCase):
         for key,pt,expected in vectors:
             with self.subTest(key=key):
                 self.assertEqual(serpent32_encrypt(bytes.fromhex(key),bytes.fromhex(pt)).hex(),expected)
+                
+                
