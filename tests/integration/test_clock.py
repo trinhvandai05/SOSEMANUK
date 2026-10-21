@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+# Công Hùng
+>>>>>>> 3157cced6792c93eebea13203ac43b83e7a0b090
 import unittest
 
 from sosemanuk.core.lfsr import lfsr_step
