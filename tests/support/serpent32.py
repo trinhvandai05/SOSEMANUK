@@ -18,3 +18,4 @@ def serpent32_encrypt(key: bytes, plaintext: bytes) -> bytes:
             words=linear_transform(words)
     words=tuple(x ^ y for x,y in zip(words,keys[32]))
     return b''.join(store32le(w) for w in words)
+
